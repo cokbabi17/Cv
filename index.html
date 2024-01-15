@@ -19,9 +19,17 @@
             color: #fff;
             border-radius: 10px;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-img {
+            border-radius: 50%;
+            margin-right: 20px;
         }
         h1 {
             color: #fff;
+            margin: 0;
         }
         .section {
             margin-bottom: 20px;
@@ -29,6 +37,10 @@
             padding: 15px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+        .section:hover {
+            background-color: #f0f0f0;
         }
         h2 {
             color: #17A2B8;
@@ -36,18 +48,71 @@
         h3 {
             color: #6C757D;
         }
+        .gallery-btn {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        .gallery img {
+            max-width: 80%;
+            max-height: 80%;
+            display: none;
+        }
+        .gallery img.active {
+            display: block;
+        }
+        .gallery-nav-btn {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        .gallery-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
         footer {
             text-align: center;
             color: #6C757D;
             margin-top: 20px;
         }
     </style>
+    
 </head>
 <body>
 
     <header>
-        <h1>Helen Prayugi</h1>
-        <p>Cook</p>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQqqcDbIs4IgxNbfyqirG4hD8HonuRCa-XtLw&usqp=CAU" alt="Profile Picture" class="profile-img" width="100" height="100">
+        <div>
+            <h1>Helen Prayugi</h1>
+            <p>Cook</p>
+        </div>
     </header>
 
     <section class="section">
@@ -55,6 +120,14 @@
         <p>Banyuwangi - East Java, Indonesia</p>
         <p>+62 85230436818</p>
         <p>helenprayugi@gmail.com</p>
+    </section>
+
+    <section class="section">
+        <h2>About Me</h2>
+        <p>
+            I am a graduate of vocational high school majoring in sales management. I have 10 years of experience working as a cook and pastry chef in various restaurants. 
+            I possess time management, collaboration, and meticulous kitchen restocking skills.
+        </p>
     </section>
 
     <section class="section">
@@ -109,9 +182,60 @@
         <p>Sales Management (2006 - 2009)</p>
     </section>
 
+    <section class="section">
+        <h2>Sertifikat</h2>
+        <a href="#" class="gallery-btn" onclick="openGallery()">View Gallery</a>
+        <div class="gallery" id="galleryModal">
+            <button class="gallery-close-btn" onclick="closeGallery()">Close</button>
+            <button class="gallery-nav-btn" onclick="prevImage()">Back</button>
+            <img src="https://marketplace.canva.com/EAFEYgd3US4/1/0/1600w/canva-putih-%26-biru-moderen-pemenang-perlombaan-sertifikat-qmYaW0PbU9A.jpg" alt="Certificate 1" class="active">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7jxDAIm2ZsGvJPJRKTOz74aIKvp2kr9VRFQ&usqp=CAU" alt="Certificate 2">
+            <!-- Add more images as needed -->
+            <button class="gallery-nav-btn" onclick="nextImage()">Next</button>
+        </div>
+    </section>
+
     <footer>
-        <p>References available upon request</p>
+        <p>CV. Helen Prayugi</p>
     </footer>
+
+    <script>
+        let currentImageIndex = 0;
+
+        function openGallery() {
+            document.getElementById("galleryModal").style.display = "flex";
+            showImage(currentImageIndex);
+        }
+
+        function closeGallery() {
+            document.getElementById("galleryModal").style.display = "none";
+        }
+
+        function showImage(index) {
+            const images = document.querySelectorAll(".gallery img");
+            currentImageIndex = index;
+
+            images.forEach((img, i) => {
+                if (i === index) {
+                    img.classList.add("active");
+                } else {
+                    img.classList.remove("active");
+                }
+            });
+        }
+
+        function nextImage() {
+            const totalImages = document.querySelectorAll(".gallery img").length;
+            currentImageIndex = (currentImageIndex + 1) % totalImages;
+            showImage(currentImageIndex);
+        }
+
+        function prevImage() {
+            const totalImages = document.querySelectorAll(".gallery img").length;
+            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
+            showImage(currentImageIndex);
+        }
+    </script>
 
 </body>
 </html>
